@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BonusTest {
 
@@ -25,5 +26,45 @@ public class BonusTest {
         int result = DataFlowTargets.bonus(attendance, 1);
 
         assertEquals(5, result);
+    }
+
+    @Test
+    @DisplayName("DU: invalid attendance at line 32")
+    void testBonusNullAttendance() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> DataFlowTargets.bonus(null, 1)
+        );
+    }
+
+    @Test
+    @DisplayName("DU: negative threshold at line 32")
+    void testBonusNegativeThreshold() {
+        int[] attendance = {1, 1};
+
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> DataFlowTargets.bonus(attendance, -1)
+        );
+    }
+
+    @Test
+    @DisplayName("DU: empty attendance, score 49 to 56")
+    void testBonusEmptyAttendance() {
+        int[] attendance = {};
+
+        int result = DataFlowTargets.bonus(attendance, 1);
+
+        assertEquals(0, result);
+    }
+
+    @Test
+    @DisplayName("DU: score 51 to 54 to 56")
+    void testBonusFullStreak() {
+        int[] attendance = {1, 1, 1, 1, 1};
+
+        int result = DataFlowTargets.bonus(attendance, 5);
+
+        assertEquals(8, result);
     }
 }
