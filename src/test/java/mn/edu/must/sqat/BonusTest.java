@@ -67,4 +67,14 @@ public class BonusTest {
 
         assertEquals(8, result);
     }
+        
+    @Test
+    @DisplayName("M2: present and streak have different values")
+    void testBonusWrongBestUpdate() {
+        int[] attendance = {1, 0, 1, 1, 1, 1};
+
+        int result = DataFlowTargets.bonus(attendance, 9);
+
+        assertEquals(0, result);
+    }
 }
