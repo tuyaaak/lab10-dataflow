@@ -6,16 +6,30 @@
 ## Ашигласан орчин
 
 **Java:**
+
+```bash
+java -version
+```
+
+```text
 openjdk version "25.0.5.0.2" 2026-10-22 LTS
 OpenJDK Runtime Environment Microsoft-15804669 (build 25.0.5.0.2+1-LTS)
 OpenJDK 64-Bit Server VM Microsoft-15804669 (build 25.0.5.0.2+1-LTS, mixed mode, sharing)
+```
 
 **Maven:**
+
+```bash
+mvn -version
+```
+
+```text
 Apache Maven 3.10.0 (c43a36b8d67be7e0805a411bc0898af1a51f5472)
 Maven home: /usr/local/sdkman/candidates/maven/current
 Java version: 25.0.5.0.2, vendor: Microsoft, runtime: /usr/local/sdkman/candidates/java/25.0.5.0+2-ms
 Default locale: en, platform encoding: UTF-8, time zone: Etc/UTC
 OS name: "linux", version: "6.8.0-1070-azure", arch: "amd64", family: "unix"
+```
 
 ## A. gcd() функцийн DU шинжилгээ
 
@@ -206,6 +220,29 @@ DU хос болно.
 
 Эдгээр замыг DU хамралтад тооцоогүй.
 
+#### Биелэх боломжгүй салаанууд
+
+**best 37→42 (False)**
+
+37-р мөрөнд best = 0.
+42-р мөр анх шалгагдахад streak = 1 тул
+streak > best нөхцөл true болно.
+Иймээс best-ийн анхны утгатай үед
+42-р мөрийн false салаанд хүрэхгүй.
+
+**best 37→53 (True)**
+
+37-р мөрөнд best = 0.
+Энэ утга өөрчлөгдөөгүй бол best >= 5
+нөхцөл false байна.
+
+53-р мөрийн true салаанд хүрэхийн тулд
+43-р мөрөнд best шинэчлэгдэх шаардлагатай.
+Тэгвэл 37-р мөрийн definition хүчингүй болно.
+
+Иймээс best-ийн 37→53 хосын true салаанд
+def-clear замаар хүрэх боломжгүй.
+
 ### B4. All-defs тест
 
 All-defs хамралтад 2 тест бичиж ажиллуулав.
@@ -317,6 +354,21 @@ Branch coverage нь нөхцөлийн салааг хэмждэг.
 цэгээс ашигласан цэг хүртэлх замыг шалгадаг.
 Тиймээс branch 100% байсан ч DU хос
 хамрагдаагүй байх боломжтой.
+
+#### Branch болон DU coverage-ийн ялгаа
+
+Branch 100% болсон ч бүх DU хос хамрагдсан
+гэсэн үг биш.
+
+Жишээ нь score-ийн 49→54 DU хосыг хамруулахад
+50-р мөр false, 53-р мөр true байх хэрэгтэй.
+
+Эдгээр нөхцөлийн true/false салааг тус тусад нь
+шалгасан ч 50(F)→53(T) замыг нэг тестээр
+гүйцэтгээгүй бол 49→54 хос хамрагдахгүй.
+
+Иймээс branch coverage нь DU coverage-ийг
+бүрэн баталгаажуулахгүй.
 
 ## C. Fault seeding
 
